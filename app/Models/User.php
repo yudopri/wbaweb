@@ -15,6 +15,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'name',
+        'profile_picture',
         'verifikasi', // Tambahkan kolom verifikasi di sini
     ];
 

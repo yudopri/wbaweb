@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\userController;
 
 // Authentication routes with email verification enabled
 Auth::routes(['verify' => true]);
@@ -104,6 +105,15 @@ Route::get('/gallery/edit/{id}', [GalleryController::class, 'edit'])->name('admi
 Route::post('/gallery/store', [GalleryController::class, 'store'])->name('admin.gallery.store');
 Route::delete('/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
 Route::get('/gallery/{id}', [GalleryController::class, 'show'])->name('admin.gallery.show');
+
+Route::resource('user', UserController::class);
+Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
+Route::get('/user/create', [UserController::class, 'create'])->name('admin.user.create');
+Route::put('/user/edit/{user}', [UserController::class, 'update'])->name('admin.user.update');
+Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
+Route::post('/user/store', [UserController::class, 'store'])->name('admin.user.store');
+Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+Route::delete('/user/{id}', [UserController::class, 'show'])->name('admin.user.show');
 
 });
 

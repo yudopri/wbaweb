@@ -341,30 +341,25 @@ return [
     'text' => 'Data Article',
     'url'  => 'admin/article',
     'icon' => 'fas fa-newspaper', // Icon artikel atau berita
-],
-// Data Gallery
+],// Data Gallery
 [
     'text' => 'Data Gallery',
     'url'  => 'admin/gallery',
-    'icon' => 'fas fa-newspaper', // Icon artikel atau berita
+    'icon' => 'fas fa-image', // Icon for gallery or images
 ],
 
-    ['header' => 'labels'],
-    [
-        'text'       => 'important',
-        'icon_color' => 'red',
-        'url'        => '#',
-    ],
-    [
-        'text'       => 'warning',
-        'icon_color' => 'yellow',
-        'url'        => '#',
-    ],
-    [
-        'text'       => 'information',
-        'icon_color' => 'cyan',
-        'url'        => '#',
-    ],
+// Setting header
+['header' => 'Setting'],
+
+// Data Account
+[
+    'text' => 'Data Account',
+    'url'  => 'admin/user',
+    'icon' => 'fas fa-user', // Icon for user or account management
+],
+
+
+    
 ],
 
 
