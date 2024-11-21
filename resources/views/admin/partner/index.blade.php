@@ -27,7 +27,7 @@
                     <td>{{ $partner->name_partner }}</td>
                     <td>
                         @if($partner->icon)
-                        <img src="{{ asset('storage/icons/partners/' . basename($partner->icon)) }}" alt="Current Icon" width="100">
+                        <img src="{{ asset('storage/partner/' . basename($partner->icon)) }}" alt="Current Icon" width="100">
                         @else
                             <img src="{{ asset('images/default-icon.jpg') }}" alt="Default Icon" width="100">
                         @endif

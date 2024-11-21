@@ -14,7 +14,7 @@
         <div class="card-body">
             <!-- Display the Icon if available -->
             @if($partner->icon)
-            <img src="{{ asset('storage/icons/partners/' . basename($partner->icon)) }}" alt="Current Icon" width="100">
+            <img src="{{ asset('storage/partner/' . basename($partner->icon)) }}" alt="Current Icon" width="100">
             @else
                 <p>No icon available</p>
             @endif

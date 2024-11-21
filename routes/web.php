@@ -10,6 +10,7 @@ use App\Http\Controllers\PartnerController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\GalleryController;
 
 // Authentication routes with email verification enabled
 Auth::routes(['verify' => true]);
@@ -26,15 +27,18 @@ Route::post('admin/', [AuthController::class, 'login']);
 
 // Static page routes
 Route::view('/tentang', 'tentang_kami')->name('tentang-kami');
-Route::view('/layanan', 'layanan')->name('layanan');
+Route::resource('service', ServiceController::class);
+Route::get('/layanan', [ServiceController::class, 'showUser'])->name('layanan');
 Route::view('/programkerja', 'program_kerja')->name('program-kerja');
 Route::view('/fasilitas', 'fasilitas')->name('fasilitas');
-Route::view('/client', 'client')->name('our-clients');
+Route::get('/client', [PartnerController::class, 'showUser'])->name('our-clients');
 Route::view('/karir', 'karir')->name('karir');
-Route::view('/gallery', 'gallery')->name('gallery');
+// Menampilkan daftar gallery
+Route::get('/gallery', [GalleryController::class, 'showUser'])->name('gallery');
+
 Route::view('/kontak', 'kontak_kami')->name('kontak-kami');
-Route::resource('article', ArticleController::class);
 Route::get('/article', [ArticleController::class, 'showUser'])->name('article');
+Route::get('/article/{id}', [ArticleController::class, 'showReadmore'])->name('article.showReadmore');
 
 // Admin routes with authentication and email verification middleware
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
@@ -88,8 +92,19 @@ Route::get('/article/create', [ArticleController::class, 'create'])->name('admin
 Route::put('/article/{article}', [ArticleController::class, 'update'])->name('admin.article.update');
 Route::get('/article/edit/{id}', [ArticleController::class, 'edit'])->name('admin.article.edit');
 Route::post('/article/store', [ArticleController::class, 'store'])->name('admin.article.store');
-Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('admin.article.destroy');
-Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('admin.article.show');
+Route::delete('/article/{article}', [ArticleController::class, 'destroy'])->name('admin.article.destroy');
+Route::get('/article/{id}', [ArticleController::class, 'show'])->name('admin.article.show');
+
+
+Route::resource('gallery', GalleryController::class);
+Route::get('/gallery', [GalleryController::class, 'index'])->name('admin.gallery.index');
+Route::get('/gallery/create', [GalleryController::class, 'create'])->name('admin.gallery.create');
+Route::put('/gallery/{gallery}', [GalleryController::class, 'update'])->name('admin.gallery.update');
+Route::get('/gallery/edit/{id}', [GalleryController::class, 'edit'])->name('admin.gallery.edit');
+Route::post('/gallery/store', [GalleryController::class, 'store'])->name('admin.gallery.store');
+Route::delete('/gallery/{gallery}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
+Route::get('/gallery/{id}', [GalleryController::class, 'show'])->name('admin.gallery.show');
+
 });
 
 // Visitor cookie route

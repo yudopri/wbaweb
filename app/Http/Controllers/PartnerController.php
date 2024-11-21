@@ -17,7 +17,14 @@ class PartnerController extends Controller
         // Return the view with the services data
         return view('admin.partner.index', compact('partners'));
     }
+    public function showUser()
+    {
+        // Get all services from the database
+        $partners = Partner::all();
 
+        // Return the view with the services data
+        return view('client', compact('partners'));
+    }
     // Show form to create a new service
     public function create()
     {
@@ -34,7 +41,7 @@ class PartnerController extends Controller
         ]);
 
         // Store the icon in the internal storage and get the file path
-        $iconPath = $request->file('icon')->store('partner', 'local'); // Store in internal storage
+        $iconPath = $request->file('icon')->store('partner', 'public'); // Store in internal storage
 
         // Create a new service entry in the database
         Partner::create([
@@ -56,7 +63,7 @@ class PartnerController extends Controller
 
         // If a new icon is uploaded, store it and get the path
         if ($request->hasFile('icon')) {
-            $iconPath = $request->file('icon')->store('partner', 'local'); // Store in internal storage
+            $iconPath = $request->file('icon')->store('partner', 'public'); // Store in internal storage
             $partner->icon = $iconPath; // Update the icon path in the database
         }
 

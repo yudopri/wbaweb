@@ -342,7 +342,12 @@ return [
     'url'  => 'admin/article',
     'icon' => 'fas fa-newspaper', // Icon artikel atau berita
 ],
-
+// Data Gallery
+[
+    'text' => 'Data Gallery',
+    'url'  => 'admin/gallery',
+    'icon' => 'fas fa-newspaper', // Icon artikel atau berita
+],
 
     ['header' => 'labels'],
     [

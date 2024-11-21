@@ -18,6 +18,14 @@ class ServiceController extends Controller
         return view('admin.service.index', compact('services'));
     }
 
+    public function showUser()
+    {
+        // Get all services from the database
+        $services = Service::all();
+
+        // Return the view with the services data
+        return view('layanan', compact('services'));
+    }
     // Show form to create a new service
     public function create()
     {
@@ -35,7 +43,7 @@ class ServiceController extends Controller
         ]);
 
         // Store the icon in the internal storage and get the file path
-        $iconPath = $request->file('icon')->store('services', 'local'); // Store in internal storage
+        $iconPath = $request->file('icon')->store('services', 'public'); // Store in internal storage
 
         // Create a new service entry in the database
         Service::create([
@@ -59,7 +67,7 @@ class ServiceController extends Controller
 
         // If a new icon is uploaded, store it and get the path
         if ($request->hasFile('icon')) {
-            $iconPath = $request->file('icon')->store('services', 'local'); // Store in internal storage
+            $iconPath = $request->file('icon')->store('services', 'public'); // Store in internal storage
             $service->icon = $iconPath; // Update the icon path in the database
         }
 

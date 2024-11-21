@@ -38,7 +38,7 @@
             <!-- Display current icon -->
             <div class="mt-2">
     <label>Current Icon:</label>
-    <img src="{{ asset('storage/icons/partners/' . basename($partner->icon)) }}" alt="Current Icon" width="50">
+    <img src="{{ asset('storage/partner/' . basename($partner->icon)) }}" alt="Current Icon" width="50">
 
 </div>
 

@@ -16,26 +16,26 @@
 
             <!-- Image of security personnel -->
             <div class="flex justify-center mb-8">
-                <img alt="Security personnel of PT. CIP" class="rounded-lg" height="200" src="https://storage.googleapis.com/a1aa/image/CNxsafGFZISnHiQHKhtp67CaSuESnMjGFZadZxWFNOsIgy3JA.jpg" width="300"/>
+                <img alt="Security personnel of PT. CIP" class="rounded-lg" height="200" src="{{ asset('assets/image/fasilitas.png')}}" width="300"/>
             </div>
 
             <!-- Grid of features -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
-                    Pengisian Kedisiplinan (Client)
+                    Pelatihan Teknis dan Non-Teknis
                 </div>
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
-                    Pengisian Kedisiplinan (Tenaga Kerja)
+                    Pendampingan di Tempat Kerja (On-Site Support)
                 </div>
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
-                    BPJS Kesehatan dan BPJS Ketenagakerjaan
+                    Fasilitas Magang dan Kerja Sama dengan Mitra
                 </div>
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
-                    ID Card dan Site Card yang dapat diunduh
+                    Program Pengembangan Kedisiplinan
                 </div>
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
@@ -43,15 +43,15 @@
                 </div>
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
-                    Test Kesehatan online (DLS) kepada Tenaga Kerja
+                    Sarana Keamanan dan Kesehatan Kerja (K3)
                 </div>
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
-                    Online Survey kepuasan Client secara berkala
+                    Transportasi Tenaga Kerja
                 </div>
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
-                    Aplikasi Presensi Online (Guard Patrol)
+                    Manajemen Administrasi dan Pelaporan
                 </div>
             </div>
         </div>

@@ -19,6 +19,30 @@ class ArticleController extends Controller
         return view('articles', compact('articles'));
     }
 
+    public function show($id)
+    {
+        // Mengambil artikel berdasarkan ID
+        $article = Article::findOrFail($id);
+
+        // Mengirimkan data artikel ke view
+        return view('admin.article.show', compact('article'));
+    }
+    public function showReadmore($id)
+    {
+        // Mengambil artikel berdasarkan ID
+        $article = Article::findOrFail($id);
+
+        // Mengambil 3 artikel terbaru untuk bagian "Other Latest News"
+        $latestArticles = Article::latest()
+            ->where('id', '!=', $id) // Kecualikan artikel yang sedang dilihat
+            ->take(3)
+            ->get();
+
+        // Mengirimkan data artikel ke view
+        return view('readmore', compact('article', 'latestArticles'));
+    }
+
+
     public function create()
     {
         return view('admin.article.create');
@@ -36,7 +60,7 @@ class ArticleController extends Controller
         $imagePath = null;
         if ($request->hasFile('image')) {
             // Simpan file ke disk 'public'
-            $imagePath = $request->file('image')->store('articles', 'local');
+            $imagePath = $request->file('image')->store('articles', 'public');
         }
 
         Article::create([
@@ -49,8 +73,9 @@ class ArticleController extends Controller
         return redirect()->route('admin.article.index')->with('success', 'Article created successfully.');
     }
 
-    public function edit(Article $article)
+    public function edit(Article $article, $id)
     {
+        $article = Article::findOrFail($id);
         return view('admin.article.edit', compact('article'));
     }
 
@@ -65,7 +90,7 @@ class ArticleController extends Controller
 
         if ($request->hasFile('image')) {
             // Simpan file ke disk 'public'
-            $imagePath = $request->file('image')->store('articles', 'local');
+            $imagePath = $request->file('image')->store('articles', 'public');
             $article->image = $imagePath;
         }
 

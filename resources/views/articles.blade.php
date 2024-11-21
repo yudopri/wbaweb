@@ -38,7 +38,7 @@
                     <p class="text-gray-600 mb-4">
                         {{ \Illuminate\Support\Str::limit($article->description, 100) }}
                     </p>
-                    <a href="#" class="text-blue-600">
+                    <a href="{{ route('article.showReadmore', $article->id) }}" class="text-blue-600">
                         READ MORE
                     </a>
                 </div>

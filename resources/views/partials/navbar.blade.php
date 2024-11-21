@@ -8,7 +8,7 @@
         </div>
         <!-- Navigation Links -->
         <nav class="hidden md:flex space-x-6">
-            @foreach(['TENTANG KAMI', 'LAYANAN','ARTICLE', 'PROGRAM KERJA', 'FASILITAS', 'OUR CLIENTS', 'KARIR', 'GALLERY', 'KONTAK KAMI'] as $link)
+            @foreach(['TENTANG KAMI', 'LAYANAN','ARTICLE', 'PROGRAM KERJA', 'FASILITAS', 'OUR CLIENTS', 'GALLERY', 'KONTAK KAMI'] as $link)
                 <a href="{{ route(strtolower(str_replace(' ', '-', $link))) }}" class="hover:text-black">{{ $link }}</a>
             @endforeach
         </nav>
@@ -16,7 +16,7 @@
     </div>
     <div class="hidden" id="menu">
         <nav class="flex flex-col space-y-4 py-4 px-6">
-            @foreach(['TENTANG KAMI', 'LAYANAN','ARTICLE', 'PROGRAM KERJA', 'FASILITAS', 'OUR CLIENTS', 'KARIR', 'GALLERY', 'KONTAK KAMI'] as $link)
+            @foreach(['TENTANG KAMI', 'LAYANAN','ARTICLE', 'PROGRAM KERJA', 'FASILITAS', 'OUR CLIENTS', 'GALLERY', 'KONTAK KAMI'] as $link)
                 <a href="{{ route(strtolower(str_replace(' ', '-', $link))) }}" class="hover:text-black">{{ $link }}</a>
             @endforeach
         </nav>
