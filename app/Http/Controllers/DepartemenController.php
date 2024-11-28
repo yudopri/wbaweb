@@ -28,13 +28,15 @@ class DepartemenController extends Controller
         return redirect()->route('admin.departemen.index')->with('success', 'Departemen created successfully.');
     }
 
-    public function show(Departemen $departemen)
+    public function show($id)
     {
+        $departemen = Departemen::find($id);
         return view('admin.departemen.show', compact('departemen'));
     }
 
-    public function edit(Departemen $departemen)
+    public function edit($id)
     {
+        $departemen = Departemen::find($id);
         return view('admin.departemen.edit', compact('departemen'));
     }
 

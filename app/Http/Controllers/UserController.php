@@ -30,40 +30,44 @@ class UserController extends Controller
     }
 
     public function store(Request $request)
-{
-    // Validasi data yang masuk
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|string|min:8|confirmed',
-        'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
-
-    // Menangani upload foto profil jika ada
-    $imagePath = null;
-    if ($request->hasFile('profile_picture')) {
-        $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+    {
+        // Validate the incoming request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string|max:255',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        // Handle the profile picture upload if present
+        $imagePath = null;
+        if ($request->hasFile('profile_picture')) {
+            $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+        }
+    
+        // Get the role from the request
+        $role = $request->role;
+    
+        // Always set email_verified_at to the current date and time
+        $emailVerifiedAt = now();
+    
+        // Create a new user with the validated data
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password), // Use bcrypt for password hashing
+            'email_verified_at' => $emailVerifiedAt, // Set current timestamp
+            'role' => $role,
+            'profile_picture' => $imagePath,
+            'verifikasi' => true, // Set verifikasi as true (user is verified)
+        ]);
+    
+        // Redirect back to the user index with a success message
+        return redirect()->route('admin.user.index')->with('success', 'User created successfully.');
     }
+    
 
-    // Menentukan status verifikasi berdasarkan checkbox
-    $verifikasi = $request->has('verifikasi') ? true : false;
-
-    // Jika email sudah diverifikasi, simpan waktu sekarang di kolom email_verified_at
-    $emailVerifiedAt = $verifikasi ? now() : null;
-
-    // Membuat user baru
-    User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'profile_picture' => $imagePath,
-        'verifikasi' => $verifikasi, // Menyimpan status verifikasi
-        'email_verified_at' => $emailVerifiedAt, // Menyimpan waktu verifikasi email
-    ]);
-
-    // Redirect dengan pesan sukses
-    return redirect()->route('admin.user.index')->with('success', 'User created successfully.');
-}
 
 
 
@@ -76,44 +80,50 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
 {
-    // Validasi data yang masuk
+    // Validate the incoming request data
     $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email,' . $user->id,
         'password' => 'nullable|string|min:8|confirmed',
+        'role' => 'required|string|max:255',
         'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    // Menangani upload foto profil jika ada
-    $imagePath = $user->profile_picture; // Pertahankan foto profil lama
+    // Handle the profile picture upload if present
+    $imagePath = $user->profile_picture; // Keep the old profile picture by default
     if ($request->hasFile('profile_picture')) {
-        // Hapus foto profil lama jika ada
+        // Delete the old profile picture if it exists
         if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
             Storage::delete('public/' . $user->profile_picture);
         }
 
-        // Upload foto profil baru
+        // Upload the new profile picture
         $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
     }
 
-    // Menentukan status verifikasi berdasarkan checkbox
-    $verifikasi = $request->has('verifikasi') ? true : false;
+    // Get the role from the request
+    $role = $request->role;
 
-    // Jika email sudah diverifikasi, simpan waktu sekarang di kolom email_verified_at
-    $emailVerifiedAt = $verifikasi ? now() : null;
-    // Update data user
+    // Always set email_verified_at to the current date and time
+    $emailVerifiedAt = now();
+
+    // Update the user with the new data
     $user->update([
         'name' => $request->name,
         'email' => $request->email,
-        'password' => $request->password ? Hash::make($request->password) : $user->password,
+        'password' => $request->password ? bcrypt($request->password) : $user->password, // Use bcrypt if password is changed
+        'email_verified_at' => $emailVerifiedAt, // Always set current timestamp
+        'role' => $role,
         'profile_picture' => $imagePath,
-        'verifikasi' => $verifikasi, // Update status verifikasi
-        'email_verified_at' => $emailVerifiedAt,
+        'verifikasi' => true, // Set verifikasi as true (user is verified)
     ]);
 
-    // Redirect dengan pesan sukses
+    // Redirect back to the user index with a success message
     return redirect()->route('admin.user.index')->with('success', 'User updated successfully.');
 }
+
+
+
 
     public function destroy(User $user)
     {

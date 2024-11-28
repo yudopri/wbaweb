@@ -26,7 +26,7 @@ class EmployeeExport
         $sheet = $spreadsheet->getActiveSheet();
 
         // Menetapkan headings
-        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('A1', 'NO');
         $sheet->setCellValue('B1', 'Name');
         $sheet->setCellValue('C1', 'Keterangan');
         $sheet->setCellValue('D1', 'TMT');

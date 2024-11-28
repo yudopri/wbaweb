@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'name' => 'yl',
             'email' => 'e41230009@student.polije.ac.id',
             'password' => bcrypt('password123'), // Gunakan bcrypt untuk mengenkripsi password
-            'email_verified_at' => now(),// Gunakan bcrypt untuk mengenkripsi password
+            'email_verified_at' => now(),
             'verifikasi' => true, // Menandakan pengguna ini sudah terverifikasi
             'role' => 'karyawan',
         ]);

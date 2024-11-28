@@ -38,18 +38,6 @@
         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
     </div>
 
-    <!-- Verifikasi field -->
-    <div class="form-group">
-        <label for="verifikasi">Verified</label>
-        <select name="verifikasi" class="form-control" id="verifikasi">
-            <option value="1" {{ old('verifikasi', $user->verifikasi) == 1 ? 'selected' : '' }}>Verified</option>
-            <option value="0" {{ old('verifikasi', $user->verifikasi) == 0 ? 'selected' : '' }}>Not Verified</option>
-        </select>
-        @error('verifikasi')
-            <div class="text-danger">{{ $message }}</div>
-        @enderror
-    </div>
-
     <!-- Profile Picture field -->
     <div class="form-group">
         <label for="profile_picture">Profile Picture</label>

@@ -72,11 +72,6 @@
     @if(auth()->user()->role === 'head')
     <!-- Tombol Import dan Export -->
     <div class="mb-4">
-        <form action="{{ route('admin.employee.import') }}" method="POST" enctype="multipart/form-data" class="form-inline">
-            @csrf
-            <input type="file" name="file" class="form-control mr-2">
-            <button type="submit" class="btn btn-success mb-2">Import Excel/CSV</button>
-        </form>
         <a href="{{ route('admin.employee.export') }}" class="btn btn-info mb-2 ml-2">Export Excel</a>
     </div>
     @endif
@@ -106,7 +101,7 @@
                     <td>{{ $employee->email }}</td>
                     <td>{{ $employee->departemen->name ?? '-' }}</td>
                     <td>{{ $employee->jabatan->name ?? '-' }}</td>
-                    <td>{{ $employee->gada ? 'Ada' : 'Tidak Ada' }}</td>
+                    <td>{{ $employee->gada->name ?? 'Tidak Ada' }}</td>
                     <td>
                         @if($employee->sertifikat)
                             <a href="{{ asset('storage/' . $employee->sertifikat) }}" target="_blank">Lihat Sertifikat</a>
@@ -133,4 +128,12 @@
     </table>
 
     {{ $employees->links() }}
+    
+    <!-- Saring ulang pesan sukses di bawah tabel jika ada -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
 @stop

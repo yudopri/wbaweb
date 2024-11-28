@@ -10,7 +10,7 @@
     @if(session('success'))
         <p class="alert alert-success">{{ session('success') }}</p>
     @endif
-
+    @if(auth()->user()->role === 'head')
     <!-- Tombol untuk menambah GADA -->
     <div class="mb-3">
         <a href="{{ route('admin.gada.create') }}" class="btn btn-primary">Tambah GADA</a>
@@ -56,4 +56,7 @@
 
     <!-- Pagination -->
     {{ $gadas->links() }}
+    @elseif(auth()->user()->role === 'karyawan')
+        <h3>Khusus Kepala</h3>
+    @endif
 @stop

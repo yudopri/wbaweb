@@ -10,7 +10,7 @@
     @if(session('success'))
         <p class="alert alert-success">{{ session('success') }}</p>
     @endif
-
+    @if(auth()->user()->role === 'head')
     <!-- Tombol Tambah -->
     <a href="{{ route('admin.departemen.create') }}" class="btn btn-primary mb-3">Tambah Departemen</a>
 
@@ -40,4 +40,7 @@
             @endforeach
         </tbody>
     </table>
+    @elseif(auth()->user()->role === 'karyawan')
+        <h3>Khusus Kepala</h3>
+    @endif
 @stop

@@ -118,16 +118,17 @@ Route::post('/user/store', [UserController::class, 'store'])->name('admin.user.s
 Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('admin.user.destroy');
 Route::delete('/user/{id}', [UserController::class, 'show'])->name('admin.user.show');
 
+Route::post('/employee/import', [EmployeeController::class, 'import'])->name('admin.employee.import');
+Route::get('/employee/export', [EmployeeController::class, 'export'])->name('admin.employee.export');
+
 Route::resource('employee', EmployeeController::class);
 Route::get('/employee', [EmployeeController::class, 'index'])->name('admin.employee.index');
 Route::get('/employee/create', [EmployeeController::class, 'create'])->name('admin.employee.create');
 Route::put('/employee/edit/{employee}', [EmployeeController::class, 'update'])->name('admin.employee.update');
-Route::get('/employee/edit/{id}', [EmployeeController::class, 'edit'])->name('admin.employee.edit');
+Route::get('/employee/{id}/edit', [EmployeeController::class, 'edit'])->name('admin.employee.edit');
 Route::post('/employee/store', [EmployeeController::class, 'store'])->name('admin.employee.store');
 Route::delete('/employee/{employee}', [EmployeeController::class, 'destroy'])->name('admin.employee.destroy');
 Route::get('/employee/{id}', [EmployeeController::class, 'show'])->name('admin.employee.show');
-Route::post('/employee/import', [EmployeeController::class, 'import'])->name('admin.employee.import');
-Route::get('/employee/export', [EmployeeController::class, 'export'])->name('admin.employee.export');
 
 
 Route::resource('departemen', DepartemenController::class);

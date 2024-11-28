@@ -25,10 +25,10 @@
                 <p>{{ $user->email }}</p>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label>Verification Status:</label>
                 <p>{{ $user->verifikasi ? 'Verified' : 'Not Verified' }}</p>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label>Created At:</label>

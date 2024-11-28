@@ -27,13 +27,15 @@ class GadaController extends Controller
         return redirect()->route('admin.gada.index')->with('success', 'Gada created successfully.');
     }
 
-    public function show(Gada $gada)
+    public function show($id)
     {
+        $gada = Gada::find($id);
         return view('admin.gada.show', compact('gada'));
     }
 
-    public function edit(Gada $gada)
+    public function edit($id)
     {
+        $gada = Gada::find($id);
         return view('admin.gada.edit', compact('gada'));
     }
 

@@ -28,13 +28,15 @@ class JabatanController extends Controller
         return redirect()->route('admin.jabatan.index')->with('success', 'Jabatan created successfully.');
     }
 
-    public function show(Jabatan $jabatan)
+    public function show($id)
     {
+        $jabatan = Jabatan::find($id);
         return view('admin.jabatan.show', compact('jabatan'));
     }
 
-    public function edit(Jabatan $jabatan)
+    public function edit($id)
     {
+        $jabatan = Jabatan::find($id);
         return view('admin.jabatan.edit', compact('jabatan'));
     }
 

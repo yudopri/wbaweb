@@ -46,24 +46,7 @@ class EmployeeController extends Controller
         return view('admin.employee.index', compact('employees', 'departemens', 'jabatans', 'gadas'));
     }
 
-    // Export Employees
-    public function export()
-    {
-        return (new EmployeeExport())->download();
-    }
-
-
-    // Import Employees
-    public function import(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|mimes:xlsx,csv',
-        ]);
-
-        Excel::import(new EmployeesImport, $request->file('file'));
-
-        return redirect()->route('admin.employee.index')->with('success', 'Data berhasil diimpor!');
-    }
+   
 
     // Menampilkan form tambah employee
     public function create()
@@ -127,20 +110,32 @@ class EmployeeController extends Controller
 
     // Menampilkan detail employee
     public function show($id)
-    {
-        $employee = Employee::find($id); // Mengambil data karyawan berdasarkan ID
-        return view('admin.employee.show', compact('employee'));
-    }
+{
+    $employee = Employee::with(['departemen', 'jabatan', 'gada'])->findOrFail($id);
+    return view('admin.employee.show', compact('employee'));
+}
 
     // Menampilkan form edit employee
-    public function edit(Employee $employee)
-    {
-        $departemens = Departemen::all();
-        $jabatans = Jabatan::all();
-        $gadas = Gada::all();
-        return view('admin.employee.edit', compact('employee', 'departemens', 'jabatans', 'gadas'));
+    public function edit($id)
+{
+    // Fetch the employee by ID or handle the error if not found
+    $employee = Employee::find($id);
+
+    // If the employee is not found, redirect or show an error
+    if (!$employee) {
+        return redirect()->route('admin.employee.index')->with('error', 'Employee not found');
     }
 
+    // Fetch other data like departments, positions, and gadgets
+    $departements = Departemen::all();  // Correct spelling here
+    $jabatans = Jabatan::all();
+    $gadas = Gada::all();
+
+    // Pass the data to the view
+    return view('admin.employee.edit', compact('employee', 'departements', 'jabatans', 'gadas'));
+}
+
+    
     // Menghapus employee
     public function destroy(Employee $employee)
     {
@@ -208,4 +203,22 @@ class EmployeeController extends Controller
 
         return redirect()->route('admin.employee.index')->with('success', 'Employee updated successfully.');
     }
+     // Export Employees
+     public function export()
+     {
+         return (new EmployeeExport())->download();
+     }
+ 
+ 
+     // Import Employees
+     public function import(Request $request)
+     {
+         $request->validate([
+             'file' => 'required|mimes:xlsx,csv',
+         ]);
+ 
+         Excel::import(new EmployeesImport, $request->file('file'));
+ 
+         return redirect()->route('admin.employee.index')->with('success', 'Data berhasil diimpor!');
+     }
 }

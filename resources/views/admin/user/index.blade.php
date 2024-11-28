@@ -20,7 +20,8 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Profile Picture</th>
-                    <th>Verification Status</th>
+                    <!-- <th>Verification Status</th> -->
+                    <th>Level</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -36,7 +37,8 @@
                                 <img src="{{ asset('images/default-image.jpg') }}" alt="Default Image" width="100">
                             @endif
                         </td>
-                        <td>{{ $user->verifikasi ? 'Verified' : 'Not Verified' }}</td>
+                        <!-- <td>{{ $user->verifikasi ? 'Verified' : 'Not Verified' }}</td> -->
+                        <td>{{ $user->role }}</td>
                         <td>
                             <!-- Edit User -->
                             <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
@@ -48,6 +50,7 @@
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
                             </form>
                         </td>
+                        
                     </tr>
                 @endforeach
             </tbody>
