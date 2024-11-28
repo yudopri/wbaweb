@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\userController;
+use App\Http\Controllers\UserController;
 
 // Authentication routes with email verification enabled
 Auth::routes(['verify' => true]);

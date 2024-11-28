@@ -40,7 +40,8 @@
     <div class="form-group">
         <label for="verifikasi">Verified</label>
         <select name="verifikasi" class="form-control" id="verifikasi">
-            <option value="0" {{ old('verifikasi') == 0 ? 'selected' : '' }}>Not Verified</option>
+        <option value="1" {{ old('verifikasi', $user->verifikasi) == 1 ? 'selected' : '' }}>Verified</option>
+        <option value="0" {{ old('verifikasi', $user->verifikasi) == 0 ? 'selected' : '' }}>Not Verified</option>
              </select>
         @error('verifikasi')
             <div class="text-danger">{{ $message }}</div>

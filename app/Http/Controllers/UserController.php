@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         // Retrieve the user by ID
         $user = User::findOrFail($id);
-    
+
         // Return the view with the user data
         return view('admin.user.show', compact('user'));
     }
