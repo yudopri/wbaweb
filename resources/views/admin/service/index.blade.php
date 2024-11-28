@@ -29,7 +29,7 @@
                     <td>{{ $service->description }}</td>
                     <td>
                         @if($service->icon)
-                        <img src="{{ asset('storage/icons/services/' . basename($service->icon)) }}" alt="Current Icon" width="100">
+                        <img src="{{ asset('storage/services/' . basename($service->icon)) }}" alt="Current Icon" width="100">
                         @else
                             <img src="{{ asset('images/default-icon.jpg') }}" alt="Default Icon" width="100">
                         @endif
@@ -40,7 +40,6 @@
 
                         <!-- Edit Service -->
                         <a href="{{ route('admin.service.edit', $service->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
 
                         <!-- Delete Service -->
                         <form action="{{ route('admin.service.destroy', $service->id) }}" method="POST" style="display:inline;">

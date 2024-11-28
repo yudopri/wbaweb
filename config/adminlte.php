@@ -325,14 +325,14 @@ return [
 
 // Data Jasa
 [
-    'text' => 'Data Jasa',
+    'text' => 'Data Service',
     'url'  => 'admin/service',
     'icon' => 'fas fa-briefcase',
 ],
 
 // Data Partner
 [
-    'text' => 'Data Partner',
+    'text' => 'Data Client',
     'url'  => 'admin/partner',
     'icon' => 'fas fa-handshake',
 ],
@@ -341,11 +341,42 @@ return [
     'text' => 'Data Article',
     'url'  => 'admin/article',
     'icon' => 'fas fa-newspaper', // Icon artikel atau berita
-],// Data Gallery
+],
+// Data Gallery
 [
     'text' => 'Data Gallery',
     'url'  => 'admin/gallery',
     'icon' => 'fas fa-image', // Icon for gallery or images
+],
+
+[
+    'text' => 'Master Karyawan',
+    'icon' => 'fas fa-users',
+    'submenu' => [
+        [
+            'text' => 'Data Karyawan',
+            'url'  => 'admin/employee',
+            'icon' => 'fas fa-user',
+        ],
+        [
+            'text' => 'Data Departemen',
+            'url'  => 'admin/departemen',
+            'icon' => 'fas fa-building',
+        ],
+        [
+            'text' => 'Data Jabatan',
+            'url'  => 'admin/jabatan',
+            'icon' => 'fas fa-briefcase',
+        ],
+
+        [
+            'text' => 'Data Gada',
+            'url'  => 'admin/gada',
+            'icon' => 'fas fa-database', // Ganti sesuai kebutuhan
+        ],
+
+
+    ],
 ],
 
 // Setting header
@@ -353,13 +384,12 @@ return [
 
 // Data Account
 [
-    'text' => 'Data Account',
-    'url'  => 'admin/user',
-    'icon' => 'fas fa-user', // Icon for user or account management
+    'text'        => 'Data Account',
+    'url'         => 'admin/user',
+    'icon'        => 'fas fa-user',
 ],
 
 
-    
 ],
 
 

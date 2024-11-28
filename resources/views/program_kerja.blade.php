@@ -20,7 +20,7 @@ Kami menjalin kemitraan strategis dengan instansi pemerintah, seperti Dinas Tena
                 </div>
             </div>
         </section>
-        <section class="bg-red-600 text-white py-20">
+        <section class="bg-gray-100 text-black py-20">
             <div class="container mx-auto flex flex-col items-center">
                 <h2 class="text-3xl font-bold mb-8">Program Pembinaan Tenaga Kerja</h2>
                 <div class="w-2/3 flex flex-col items-center">
@@ -39,7 +39,7 @@ Program ini mencakup pembinaan kerja sama dan magang yang dilakukan secara perio
                         <li><i class="fas fa-check-circle text-blue-500"></i> Manajemen waktu dan produktivitas.</li>
                         <li><i class="fas fa-check-circle text-blue-500"></i> Dan berbagai macam pelatihan lainnya</li>
                     </ul>
-                    <img src="{{ asset('assets/image/pembinaan.jpg')}}" alt="Training Session" class="rounded-lg shadow-lg mt-8">
+                    <!-- <img src="{{ asset('assets/image/pembinaan.jpg')}}" alt="Training Session" class="rounded-lg shadow-lg mt-8"> -->
                 </div>
             </div>
         </section>

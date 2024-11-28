@@ -6,7 +6,7 @@
 
 <main>
     <!-- Fasilitas Section -->
-    <section class="bg-blue-900 text-white py-16">
+    <section class="bg-blue-800 text-white py-16">
         <div class="container mx-auto text-center">
             <h1 class="text-4xl font-bold mb-8">Fasilitas</h1>
 
@@ -15,12 +15,12 @@
             </p>
 
             <!-- Image of security personnel -->
-            <div class="flex justify-center mb-8">
+            <!-- <div class="flex justify-center mb-8">
                 <img alt="Security personnel of PT. CIP" class="rounded-lg" height="200" src="{{ asset('assets/image/fasilitas.png')}}" width="300"/>
-            </div>
+            </div> -->
 
             <!-- Grid of features -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <div class="bg-white text-blue-900 p-4 rounded-lg shadow-md flex items-center">
                     <i class="fas fa-check-circle text-red-500 mr-2"></i>
                     Pelatihan Teknis dan Non-Teknis
@@ -58,7 +58,7 @@
     </section>
 
     <!-- Penggantian Tenaga Kerja Section -->
-    <section class="bg-white text-blue-900 py-16">
+    <section class="bg-white text-black py-16">
         <div class="container mx-auto text-center">
             <!-- Image of professional team -->
             <div class="flex justify-center mb-8">

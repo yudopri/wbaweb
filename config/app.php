@@ -68,6 +68,7 @@ return [
         JeroenNoten\LaravelAdminLte\AdminLteServiceProvider::class,
 
         App\Providers\EventServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
 
     ],
 

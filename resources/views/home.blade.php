@@ -28,55 +28,41 @@
             <h2 class="text-xl font-bold mb-4">Fasilitas</h2>
             <ul class="list-disc list-inside space-y-2">
                 <li>Menyediakan tenaga pengganti (free of charge)</li>
-                <li>Program pelatihan periodik</li>
+                <li>Program pelatihan Teknis dan Non-TEknis</li>
                 <li>Koperasi simpan pinjam</li>
-                <li>Santunan duka cita dan sukacita</li>
-                <li>Absensi dan guard patrol online</li>
+                <li>Sarana Keamanan dan Kesehatan Kerja (K3)</li>
+                <li>Absensi menggunakan aplikasi online</li>
             </ul>
-            <a href="/fasilitas" class="mt-4 inline-block bg-blue-700 text-white py-2 px-4 rounded text-center">READ MORE</a>
+            <a href="/fasilitas" class="mt-4 inline-block bg-blue-800 text-white py-2 px-4 rounded text-center hover:bg-blue-600">READ MORE</a>
         </div>
         <div class="bg-primary p-8 rounded-lg shadow-lg text-secondary">
             <h2 class="text-xl font-bold mb-4">Layanan</h2>
-            <p>PT Citra Indojaya Perkasa menyediakan beragam tenaga kerja outsourcing berpengalaman yang siap terjun ke dalam perusahaan anda.</p>
-            <a href="/layanan" class="mt-4 inline-block bg-blue-700 text-white py-2 px-4 rounded text-center">READ MORE</a>
+            <p>PT Wira Buana Arum menyediakan beragam tenaga kerja outsourcing berpengalaman yang siap terjun ke dalam perusahaan anda.</p>
+            <a href="/layanan" class="mt-4 inline-block bg-blue-800 text-white py-2 px-4 rounded text-center hover:bg-blue-600">READ MORE</a>
         </div>
         <div class="bg-primary p-8 rounded-lg shadow-lg text-secondary">
             <h2 class="text-xl font-bold mb-4">Program Kerja</h2>
             <p>Mencakup perencanaan, organisasi dan kontrol setiap tenaga kerja dengan bantuan koordinator lapangan serta berbagai macam program pembinaan yang disesuaikan dengan kebutuhan.</p>
-            <a href="/programkerja" class="mt-4 inline-block bg-blue-700 text-white py-2 px-4 rounded text-center">READ MORE</a>
+            <a href="/programkerja" class="mt-4 inline-block bg-blue-800 text-white py-2 px-4 rounded text-center hover:bg-blue-600">READ MORE</a>
         </div>
     </div>
 </section>
 
-<!-- Clients Section -->
-<section class="py-16 bg-gray-200">
+<!-- Partners Section -->
+<section class="py-16 bg-gray-100">
     <div class="container mx-auto text-center">
-        <h2 class="text-2xl font-bold text-primary mb-8">OUR CLIENTS</h2>
-        <!-- Wrapping div for overflow hidden -->
-        <div class="overflow-hidden relative">
-            <!-- Flex container for logos with sliding effect -->
-            <div class="flex space-x-8 animate-slide">
-                <img src="{{ asset('assets/image/pelindo.png') }}" alt="Client Logo 1" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/uhw.png') }}" alt="Client Logo 2" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/asdp.png') }}" alt="Client Logo 3" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/intiland.png') }}" alt="Client Logo 4" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/bankindia.png') }}" alt="Client Logo 5" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/onemed.png') }}" alt="Client Logo 6" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/ptindocement.png') }}" alt="Client Logo 7" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/fks.png') }}" alt="Client Logo 8" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/maxxi.png') }}" alt="Client Logo 9" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/hs.png') }}" alt="Client Logo 10" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/pizza.jpg') }}" alt="Client Logo 11" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/harvestar.png') }}" alt="Client Logo 12" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/isuzu.png') }}" alt="Client Logo 13" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/daihatsu.png') }}" alt="Client Logo 14" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/paninbank.png') }}" alt="Client Logo 15" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/ptjatim.png') }}" alt="Client Logo 16" class="w-24 h-auto">
-                <img src="{{ asset('assets/image/ekahusada.png') }}" alt="Client Logo 17" class="w-24 h-auto">
-            </div>
+        <h2 class="text-2xl font-bold text-primary mb-8">Client</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+            @foreach($partners as $partner)
+            <div class="bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+    <img src="{{ Storage::url($partner->icon) }}" alt="{{ $partner->name_partner }}" class="w-32 h-32 mx-auto object-contain mb-4">
+    <h3 class="text-lg font-semibold text-primary">{{ $partner->name_partner }}</h3>
+</div>
+            @endforeach
         </div>
-        <a href="/client" class="bg-blue-700 text-white py-2 px-4 rounded mt-4 inline-block text-center">LIHAT KLIEN LAINNYA</a>
+        <a href="/client" class="bg-blue-800 text-white py-2 px-4 rounded mt-4 inline-block text-center hover:bg-blue-600">LIHAT KLIEN LAINNYA</a>
     </div>
 </section>
+
 
 @endsection

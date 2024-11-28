@@ -12,14 +12,17 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\GadaController;
+
 
 // Authentication routes with email verification enabled
 Auth::routes(['verify' => true]);
 
 // Homepage route
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [PartnerController::class, 'showUserHome'])->name('home');
 
 // Authentication routes
 Route::get('admin/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -32,7 +35,7 @@ Route::resource('service', ServiceController::class);
 Route::get('/layanan', [ServiceController::class, 'showUser'])->name('layanan');
 Route::view('/programkerja', 'program_kerja')->name('program-kerja');
 Route::view('/fasilitas', 'fasilitas')->name('fasilitas');
-Route::get('/client', [PartnerController::class, 'showUser'])->name('our-clients');
+Route::get('/client', [PartnerController::class, 'showUser'])->name('client');
 Route::view('/karir', 'karir')->name('karir');
 // Menampilkan daftar gallery
 Route::get('/gallery', [GalleryController::class, 'showUser'])->name('gallery');
@@ -115,6 +118,44 @@ Route::post('/user/store', [UserController::class, 'store'])->name('admin.user.s
 Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('admin.user.destroy');
 Route::delete('/user/{id}', [UserController::class, 'show'])->name('admin.user.show');
 
+Route::resource('employee', EmployeeController::class);
+Route::get('/employee', [EmployeeController::class, 'index'])->name('admin.employee.index');
+Route::get('/employee/create', [EmployeeController::class, 'create'])->name('admin.employee.create');
+Route::put('/employee/edit/{employee}', [EmployeeController::class, 'update'])->name('admin.employee.update');
+Route::get('/employee/edit/{id}', [EmployeeController::class, 'edit'])->name('admin.employee.edit');
+Route::post('/employee/store', [EmployeeController::class, 'store'])->name('admin.employee.store');
+Route::delete('/employee/{employee}', [EmployeeController::class, 'destroy'])->name('admin.employee.destroy');
+Route::get('/employee/{id}', [EmployeeController::class, 'show'])->name('admin.employee.show');
+Route::post('/employee/import', [EmployeeController::class, 'import'])->name('admin.employee.import');
+Route::get('/employee/export', [EmployeeController::class, 'export'])->name('admin.employee.export');
+
+
+Route::resource('departemen', DepartemenController::class);
+Route::get('/departemen', [DepartemenController::class, 'index'])->name('admin.departemen.index');
+Route::get('/departemen/create', [DepartemenController::class, 'create'])->name('admin.departemen.create');
+Route::put('/departemen/edit/{departemen}', [DepartemenController::class, 'update'])->name('admin.departemen.update');
+Route::get('/departemen/edit/{id}', [DepartemenController::class, 'edit'])->name('admin.departemen.edit');
+Route::post('/departemen/store', [DepartemenController::class, 'store'])->name('admin.departemen.store');
+Route::delete('/departemen/{departemen}', [DepartemenController::class, 'destroy'])->name('admin.departemen.destroy');
+Route::get('/departemen/{id}', [DepartemenController::class, 'show'])->name('admin.departemen.show');
+
+Route::resource('jabatan', JabatanController::class);
+Route::get('/jabatan', [JabatanController::class, 'index'])->name('admin.jabatan.index');
+Route::get('/jabatan/create', [JabatanController::class, 'create'])->name('admin.jabatan.create');
+Route::put('/jabatan/edit/{jabatan}', [JabatanController::class, 'update'])->name('admin.jabatan.update');
+Route::get('/jabatan/edit/{id}', [JabatanController::class, 'edit'])->name('admin.jabatan.edit');
+Route::post('/jabatan/store', [JabatanController::class, 'store'])->name('admin.jabatan.store');
+Route::delete('/jabatan/{jabatan}', [JabatanController::class, 'destroy'])->name('admin.jabatan.destroy');
+Route::get('/jabatan/{id}', [JabatanController::class, 'show'])->name('admin.jabatan.show');
+
+Route::resource('gada', GadaController::class);
+Route::get('/gada', [GadaController::class, 'index'])->name('admin.gada.index');
+Route::get('/gada/create', [GadaController::class, 'create'])->name('admin.gada.create');
+Route::put('/gada/edit/{gada}', [GadaController::class, 'update'])->name('admin.gada.update');
+Route::get('/gada/edit/{id}', [GadaController::class, 'edit'])->name('admin.gada.edit');
+Route::post('/gada/store', [GadaController::class, 'store'])->name('admin.gada.store');
+Route::delete('/gada/{gada}', [GadaController::class, 'destroy'])->name('admin.gada.destroy');
+Route::get('/gada/{id}', [GadaController::class, 'show'])->name('admin.gada.show');
 });
 
 // Visitor cookie route

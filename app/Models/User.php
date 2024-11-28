@@ -16,8 +16,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'name',
         'profile_picture',
-        'verifikasi', // Tambahkan kolom verifikasi di sini
+        'verifikasi',
+        'role', // Tambahkan kolom verifikasi di sini
     ];
+    // app/Models/User.php
+
+public function hasRole($role)
+{
+    return $this->role === $role;
+}
+
 
     protected $hidden = [
         'password',

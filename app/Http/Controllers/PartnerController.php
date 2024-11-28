@@ -25,6 +25,12 @@ class PartnerController extends Controller
         // Return the view with the services data
         return view('client', compact('partners'));
     }
+    public function showUserHome()
+    {
+        $partners = Partner::limit(6)->get(); // Retrieve only 6 partners
+        return view('home', compact('partners'));
+    }
+
     // Show form to create a new service
     public function create()
     {

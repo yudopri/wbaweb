@@ -8,15 +8,16 @@
         Wira Buana Arum Article
     </h1>
     <p class="text-center text-gray-600 mb-8">
-        This is your main source for news about Wira Buana Arum Group. Get access to photos of our latest and subscribe to updates.
+        Ini adalah laman artikel PT Wira Buana Arum Group
         <br />
-        If you have questions please contact us at
-        <a href="mailto:ptwba@yahoo.co.id" class="text-blue-600">
-            contact wba@yahoo.co.id
-        </a>
+        Jika memiliki pertanyaan silahkan hubungi :
+        <a href="mailto:ptwba@yahoo.co.id?subject=Pertanyaan&body=Halo, saya ingin bertanya..." class="text-blue-600 hover:text-black">
+    contact ptwba@yahoo.co.id
+</a>
+
     </p>
     <div class="text-center mb-8">
-        <a href="/kontak" class="bg-blue-600 text-white px-4 py-2 rounded">
+        <a href="/kontak" class="bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-600">
             Contact Us
         </a>
     </div>
@@ -38,7 +39,7 @@
                     <p class="text-gray-600 mb-4">
                         {{ \Illuminate\Support\Str::limit($article->description, 100) }}
                     </p>
-                    <a href="{{ route('article.showReadmore', $article->id) }}" class="text-blue-600">
+                    <a href="{{ route('article.showReadmore', $article->id) }}" class="text-blue-600 hover:text-black">
                         READ MORE
                     </a>
                 </div>

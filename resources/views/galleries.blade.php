@@ -4,7 +4,7 @@
 
 @section('content')
 
-<section class="bg-blue-900 text-white py-10">
+<section class="bg-blue-800 text-white py-10">
    <div class="container mx-auto text-center">
       <h1 class="text-3xl font-bold">Gallery</h1>
    </div>

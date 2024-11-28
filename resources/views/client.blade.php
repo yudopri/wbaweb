@@ -4,26 +4,24 @@
 
 @section('content')
 
-<section class="bg-blue-900 text-white py-16 relative">
+<section class="bg-blue-800 text-white py-16 relative">
     <div class="container mx-auto text-center">
         <h1 class="text-4xl font-bold">
-            Our Clients
+        Client
         </h1>
     </div>
 </section>
 
-<section class="bg-gray-100 py-16">
-    <div class="container mx-auto grid grid-cols-3 gap-8 item-center">
-        @foreach($partners as $partner)
-        <div class="bg-white p-4 shadow">
-            <img
-                alt="{{ $partner->name_partner }}"
-                height="100"
-                src="{{ asset('storage/' . $partner->icon) }}"
-                width="450"
-            />
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto text-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+            @foreach($partners as $partner)
+            <div class="bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105">
+    <img src="{{ Storage::url($partner->icon) }}" alt="{{ $partner->name_partner }}" class="w-32 h-32 mx-auto object-contain mb-4">
+    <h3 class="text-lg font-semibold text-primary">{{ $partner->name_partner }}</h3>
+</div>
+            @endforeach
         </div>
-        @endforeach
     </div>
 </section>
 

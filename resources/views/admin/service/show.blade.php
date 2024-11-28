@@ -16,7 +16,7 @@
 
             <!-- Display the Icon if available -->
             @if($service->icon)
-            <img src="{{ asset('storage/icons/services/' . basename($service->icon)) }}" alt="Current Icon" width="100">
+            <img src="{{ asset('storage/services/' . basename($service->icon)) }}" alt="Current Icon" width="100">
             @else
                 <p>No icon available</p>
             @endif

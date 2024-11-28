@@ -3,7 +3,7 @@
 @section('title', 'Tentang | PT Wira Buana Arum')
 
 @section('content')
-<section class="bg-white text-blue-900 py-20">
+<section class="bg-gray-100 text-black py-20">
     <div class="container mx-auto text-center">
         <h1 class="text-4xl font-bold mb-8">
             Tentang Kami
@@ -38,7 +38,7 @@
 </section>
 
 <!-- Section 2 -->
-<section class="bg-white text-blue-900 py-20">
+<section class="bg-white text-black py-20">
     <div class="container mx-auto text-center">
         <h2 class="text-3xl font-bold mb-8">
             Berikut Daftar Pelayanan Kami

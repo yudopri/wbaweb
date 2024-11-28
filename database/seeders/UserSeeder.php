@@ -21,13 +21,16 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password123'),
             'email_verified_at' => now(),// Gunakan bcrypt untuk mengenkripsi password
             'verifikasi' => true, // Menandakan pengguna ini sudah terverifikasi
+            'role' => 'head',
         ]);
 
         User::create([
             'name' => 'yl',
             'email' => 'e41230009@student.polije.ac.id',
             'password' => bcrypt('password123'), // Gunakan bcrypt untuk mengenkripsi password
-            'verifikasi' => false, // Menandakan pengguna ini sudah terverifikasi
+            'email_verified_at' => now(),// Gunakan bcrypt untuk mengenkripsi password
+            'verifikasi' => true, // Menandakan pengguna ini sudah terverifikasi
+            'role' => 'karyawan',
         ]);
     }
 }
