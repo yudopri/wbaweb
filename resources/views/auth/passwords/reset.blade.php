@@ -1,65 +1,80 @@
-@extends('layouts.app')
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Reset Password</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  </head>
+  <body class="flex items-center justify-center min-h-screen bg-cover bg-center" style="background-image: url('{{ asset('assets/image/slide_1.jpeg') }}');">
+    <div class="bg-white bg-opacity-15 p-8 rounded-lg shadow-lg text-center w-full max-w-md">
+      <img alt="Logo" class="w-24 h-24 rounded-full mx-auto mb-4" src="{{ asset('assets/image/logowba.png') }}" width="100" height="100"/>
+      <h2 class="text-white text-2xl font-semibold mb-6">Reset Password</h2>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+      <form action="{{ route('password.update') }}" method="POST">
+        @csrf <!-- Laravel CSRF Protection -->
+        <input type="hidden" name="token" value="{{ $token }}">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        <div class="mb-4">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email Address"
+            class="w-full p-3 rounded-full bg-white bg-opacity-75 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') is-invalid @enderror"
+            value="{{ $email ?? old('email') }}"
+            required
+            autocomplete="email"
+            autofocus
+          />
+          @error('email')
+            <span class="text-red-500 text-sm mt-2 block">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
         </div>
+
+        <div class="mb-4">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="New Password"
+            class="w-full p-3 rounded-full bg-white bg-opacity-75 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') is-invalid @enderror"
+            required
+            autocomplete="new-password"
+          />
+          @error('password')
+            <span class="text-red-500 text-sm mt-2 block">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+
+        <div class="mb-6">
+          <input
+            id="password-confirm"
+            name="password_confirmation"
+            type="password"
+            placeholder="Confirm Password"
+            class="w-full p-3 rounded-full bg-white bg-opacity-75 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+            autocomplete="new-password"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full p-3 rounded-full bg-black text-white font-semibold hover:bg-gray-800"
+        >
+          Reset Password
+        </button>
+      </form>
+
+      <a href="{{ route('login') }}" class="block mt-4 text-white text-sm">
+        Back to Login
+      </a>
     </div>
-</div>
-@endsection
+  </body>
+</html>

@@ -69,13 +69,11 @@
         </button>
 
         @if (Route::has('password.request'))
-          <a
-            class="block mt-4 text-white text-sm"
-            href="{{ route('password.request') }}"
-          >
-            Forgot Username / Password?
-          </a>
-        @endif
+  <a class="block mt-4 text-white text-sm" href="{{ route('password.request') }}">
+    Forgot Username / Password?
+  </a>
+@endif
+
       </form>
     </div>
   </body>

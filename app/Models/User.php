@@ -12,13 +12,14 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'name',
         'email',
         'password',
-        'name',
+        'role',
         'profile_picture',
         'verifikasi',
-        'role', // Tambahkan kolom verifikasi di sini
     ];
+
     // app/Models/User.php
 
 public function hasRole($role)

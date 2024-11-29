@@ -16,18 +16,20 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\GadaController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 // Authentication routes with email verification enabled
-Auth::routes(['verify' => true]);
 
 // Homepage route
 Route::get('/', [PartnerController::class, 'showUserHome'])->name('home');
-
 // Authentication routes
 Route::get('admin/', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('admin/', [AuthController::class, 'login']);
 
+Route::get('password/reset', [ResetPasswordController::class, 'showResetForm'])->name('password.update');
+
+Auth::routes();
 
 // Static page routes
 Route::view('/tentang', 'tentang_kami')->name('tentang-kami');
@@ -45,7 +47,7 @@ Route::get('/article', [ArticleController::class, 'showUser'])->name('article');
 Route::get('/article/{id}', [ArticleController::class, 'showReadmore'])->name('article.showReadmore');
 
 // Admin routes with authentication and email verification middleware
-Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Dashboard route - only accessible to verified users
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

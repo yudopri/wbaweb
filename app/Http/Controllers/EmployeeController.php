@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Crypt; // Correct import for Crypt
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EmployeeExport;
-use App\Imports\EmployeeImport;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Carbon\Carbon;
+
 
 class EmployeeController extends Controller
 {
@@ -46,7 +48,7 @@ class EmployeeController extends Controller
         return view('admin.employee.index', compact('employees', 'departemens', 'jabatans', 'gadas'));
     }
 
-   
+
 
     // Menampilkan form tambah employee
     public function create()
@@ -135,7 +137,7 @@ class EmployeeController extends Controller
     return view('admin.employee.edit', compact('employee', 'departements', 'jabatans', 'gadas'));
 }
 
-    
+
     // Menghapus employee
     public function destroy(Employee $employee)
     {
@@ -208,17 +210,77 @@ class EmployeeController extends Controller
      {
          return (new EmployeeExport())->download();
      }
- 
- 
-     // Import Employees
+
+
      public function import(Request $request)
-     {
-         $request->validate([
-             'file' => 'required|mimes:xlsx,csv',
-         ]);
- 
-         Excel::import(new EmployeesImport, $request->file('file'));
- 
-         return redirect()->route('admin.employee.index')->with('success', 'Data berhasil diimpor!');
-     }
+{
+    $request->validate([
+        'file' => 'required|mimes:xlsx,csv',
+    ]);
+
+    // Simpan file yang diunggah ke penyimpanan sementara
+    $filePath = $request->file('file')->store('temp');
+
+    // Path lengkap file yang diunggah
+    $fullPath = Storage::path($filePath);
+
+    // Baca file Excel menggunakan Spreadsheet
+    $spreadsheet = IOFactory::load($fullPath);
+    $sheet = $spreadsheet->getActiveSheet();
+    $rows = $sheet->toArray();
+
+    // Mulai dari baris kedua (skip header)
+    foreach ($rows as $index => $row) {
+        if ($index === 0) continue;
+
+        Employee::create([
+            'name' => $row[1],
+            'nik' => Crypt::encryptString($row[4]), // Encrypt the 'nik'
+            'email' => $row[14],
+            'departemen_id' => $row[5],
+            'jabatan_id' => $row[6],
+            'gada_id' => $row[7],
+            'sertifikat' => $row[16], // Assumes the path or filename is in the spreadsheet
+            'keterangan' => $row[2],
+            'tmt' => $this->transformDate($row[3]), // Ensure this function is correctly implemented or use Carbon
+            'ttl' => $this->transformDate($row[8]), // Ensure this function is correctly implemented or use Carbon
+            'telp' => Crypt::encryptString($row[9]), // Encrypt the 'telp'
+            'nik_ktp' => Crypt::encryptString($row[10]), // Encrypt the 'nik_ktp'
+            'berlaku' => $row[11],
+            'status' => $row[12],
+            'pendidikan' => $row[13],
+            'nama_ibu' => Crypt::encryptString($row[15]), // Encrypt the 'nama_ibu'
+            'no_regkta' => Crypt::encryptString($row[17]), // Encrypt the 'no_regkta'
+            'no_kta' => Crypt::encryptString($row[18]), // Encrypt the 'no_kta'
+            'alamat_ktp' => Crypt::encryptString($row[19]), // Encrypt the 'alamat_ktp'
+            'alamat_domisili' => Crypt::encryptString($row[20]), // Encrypt the 'alamat_domisili'
+            'bpjsket' => Crypt::encryptString($row[21]), // Encrypt the 'bpjsket'
+            'no_npwp' => Crypt::encryptString($row[22]), // Encrypt the 'no_npwp'
+        ]);
+    }
+
+    // Hapus file sementara
+    Storage::delete($filePath);
+
+    return redirect()->route('admin.employee.index')->with('success', 'Data berhasil diimpor!');
+}
+private function transformDate($date)
+{
+    // Jika tanggal adalah instance Carbon, langsung kembalikan
+    if ($date instanceof \Carbon\Carbon) {
+        return $date->format('Y-m-d');
+    }
+
+    // Jika tanggal berupa string, ubah ke format Y-m-d
+    try {
+        return \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+    } catch (\Exception $e) {
+        try {
+            return \Carbon\Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return null; // Kembalikan null jika gagal
+        }
+    }
+}
+
 }

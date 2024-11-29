@@ -72,9 +72,18 @@
     @if(auth()->user()->role === 'head')
     <!-- Tombol Import dan Export -->
     <div class="mb-4">
+        <!-- Tombol Import -->
+        <form action="{{ route('admin.employee.import') }}" method="POST" enctype="multipart/form-data" class="d-inline">
+            @csrf
+            <label for="file" class="btn btn-success mb-2 ml-2">Import Excel</label>
+            <input type="file" name="file" id="file" class="d-none" onchange="this.form.submit()" required>
+        </form>
+        <!-- Tombol Export -->
         <a href="{{ route('admin.employee.export') }}" class="btn btn-info mb-2 ml-2">Export Excel</a>
+
     </div>
-    @endif
+@endif
+
 
     <!-- Tombol Tambah Employee -->
     <a href="{{ route('admin.employee.create') }}" class="btn btn-primary mb-3">Tambah Karyawan</a>
@@ -128,7 +137,7 @@
     </table>
 
     {{ $employees->links() }}
-    
+
     <!-- Saring ulang pesan sukses di bawah tabel jika ada -->
     @if(session('success'))
         <div class="alert alert-success">

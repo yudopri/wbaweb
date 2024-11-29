@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('password');
             $table->string('profile_picture')->nullable();
             $table->enum('role', ['karyawan', 'head'])->default('karyawan');
+            $table->boolean('verifikasi');
             $table->rememberToken();
             $table->timestamps();
         });

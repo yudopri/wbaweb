@@ -6,6 +6,7 @@ use App\Models\Employee;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Crypt;
 
 class EmployeeExport
 {
@@ -59,25 +60,25 @@ class EmployeeExport
             $sheet->setCellValue('B' . $row, $employee->name);
             $sheet->setCellValue('C' . $row, $employee->keterangan);
             $sheet->setCellValue('D' . $row, $employee->tmt);
-            $sheet->setCellValue('E' . $row, $employee->nik);
+            $sheet->setCellValue('E' . $row, Crypt::decryptString($employee->nik));
             $sheet->setCellValue('F' . $row, $employee->departemen_id);
             $sheet->setCellValue('G' . $row, $employee->jabatan_id);
             $sheet->setCellValue('H' . $row, $employee->gada_id);
             $sheet->setCellValue('I' . $row, $employee->ttl);
-            $sheet->setCellValue('J' . $row, $employee->telp);
-            $sheet->setCellValue('K' . $row, $employee->nik_ktp);
+            $sheet->setCellValue('J' . $row, Crypt::decryptString($employee->telp));
+            $sheet->setCellValue('K' . $row, Crypt::decryptString($employee->nik_ktp));
             $sheet->setCellValue('L' . $row, $employee->berlaku);
             $sheet->setCellValue('M' . $row, $employee->status);
             $sheet->setCellValue('N' . $row, $employee->pendidikan);
             $sheet->setCellValue('O' . $row, $employee->email);
-            $sheet->setCellValue('P' . $row, $employee->nama_ibu);
+            $sheet->setCellValue('P' . $row, Crypt::decryptString($employee->nama_ibu));
             $sheet->setCellValue('Q' . $row, $employee->sertifikat);
-            $sheet->setCellValue('R' . $row, $employee->no_regkta);
-            $sheet->setCellValue('S' . $row, $employee->no_kta);
-            $sheet->setCellValue('T' . $row, $employee->alamat_ktp);
-            $sheet->setCellValue('U' . $row, $employee->alamat_domisili);
-            $sheet->setCellValue('V' . $row, $employee->bpjsket);
-            $sheet->setCellValue('W' . $row, $employee->no_npwp);
+            $sheet->setCellValue('R' . $row, Crypt::decryptString($employee->no_regkta));
+            $sheet->setCellValue('S' . $row, Crypt::decryptString($employee->no_kta));
+            $sheet->setCellValue('T' . $row, Crypt::decryptString($employee->alamat_ktp));
+            $sheet->setCellValue('U' . $row, Crypt::decryptString($employee->alamat_domisili));
+            $sheet->setCellValue('V' . $row, Crypt::decryptString($employee->bpjsket));
+            $sheet->setCellValue('W' . $row, Crypt::decryptString($employee->no_npwp));
             $sheet->setCellValue('X' . $row, $employee->created_at);
             $sheet->setCellValue('Y' . $row, $employee->updated_at);
             $row++;
