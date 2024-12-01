@@ -25,10 +25,13 @@ return new class extends Migration
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->id(); // Auto-incrementing ID
+            $table->string('email'); // Email of the user
+            $table->string('token'); // Reset token
+            $table->timestamp('created_at')->nullable(); // Timestamp for token creation
+            $table->foreign('email')->references('email')->on('users')->onDelete('cascade'); // Foreign key constraint
         });
+
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
@@ -44,9 +47,16 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
-    }
+{
+    // Hapus foreign key constraint terlebih dahulu
+    Schema::table('password_reset_tokens', function (Blueprint $table) {
+        $table->dropForeign(['email']); // Drop foreign key constraint
+    });
+
+    // Hapus tabel-tabel
+    Schema::dropIfExists('password_reset_tokens');
+    Schema::dropIfExists('sessions');
+    Schema::dropIfExists('users');
+}
+
 };

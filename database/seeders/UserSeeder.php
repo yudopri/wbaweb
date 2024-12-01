@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'yudo',
             'email' => 'yudopri71@gmail.com',
-            'password' => bcrypt('password123'),
+            'password' => Hash::make('password123'),
             'email_verified_at' => now(),// Gunakan bcrypt untuk mengenkripsi password
             'verifikasi' => true, // Menandakan pengguna ini sudah terverifikasi
             'role' => 'head',
@@ -27,7 +28,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'yl',
             'email' => 'e41230009@student.polije.ac.id',
-            'password' => bcrypt('password123'), // Gunakan bcrypt untuk mengenkripsi password
+            'password' => Hash::make('password123'), // Gunakan bcrypt untuk mengenkripsi password
             'email_verified_at' => now(),
             'verifikasi' => true, // Menandakan pengguna ini sudah terverifikasi
             'role' => 'karyawan',

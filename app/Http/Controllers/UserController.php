@@ -39,34 +39,34 @@ class UserController extends Controller
             'role' => 'required|string|max:255',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         // Handle the profile picture upload if present
         $imagePath = null;
         if ($request->hasFile('profile_picture')) {
             $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
         }
-    
+
         // Get the role from the request
         $role = $request->role;
-    
+
         // Always set email_verified_at to the current date and time
         $emailVerifiedAt = now();
-    
+
         // Create a new user with the validated data
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // Use bcrypt for password hashing
+            'password' => Hash::make($request->password), // Use bcrypt for password hashing
             'email_verified_at' => $emailVerifiedAt, // Set current timestamp
             'role' => $role,
             'profile_picture' => $imagePath,
             'verifikasi' => true, // Set verifikasi as true (user is verified)
         ]);
-    
+
         // Redirect back to the user index with a success message
         return redirect()->route('admin.user.index')->with('success', 'User created successfully.');
     }
-    
+
 
 
 
@@ -89,8 +89,10 @@ class UserController extends Controller
         'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    // Handle the profile picture upload if present
-    $imagePath = $user->profile_picture; // Keep the old profile picture by default
+    // Initialize the profile picture path (keep the old one by default)
+    $imagePath = $user->profile_picture;
+
+    // Check if a new profile picture is uploaded
     if ($request->hasFile('profile_picture')) {
         // Delete the old profile picture if it exists
         if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
@@ -101,29 +103,31 @@ class UserController extends Controller
         $imagePath = $request->file('profile_picture')->store('profile_pictures', 'public');
     }
 
-    // Get the role from the request
-    $role = $request->role;
+    // Check if the password is provided and hash it if necessary
+    $hashedPassword = $request->password ? Hash::make($request->password) : $user->password;
 
     // Always set email_verified_at to the current date and time
     $emailVerifiedAt = now();
 
     // Update the user with the new data
-    $user->update([
+    $updated = $user->update([
         'name' => $request->name,
         'email' => $request->email,
-        'password' => $request->password ? bcrypt($request->password) : $user->password, // Use bcrypt if password is changed
-        'email_verified_at' => $emailVerifiedAt, // Always set current timestamp
-        'role' => $role,
+        'password' => $hashedPassword,
+        'role' => $request->role,
         'profile_picture' => $imagePath,
-        'verifikasi' => true, // Set verifikasi as true (user is verified)
     ]);
 
-    // Redirect back to the user index with a success message
-    return redirect()->route('admin.user.index')->with('success', 'User updated successfully.');
+    // Check if the update was successful
+    if ($updated) {
+        // Redirect with success message
+        return redirect()->route('admin.user.index')->with('success', 'User updated successfully.');
+    } else {
+        // Log the failure and return an error message
+        \Log::error('User update failed for user ID: ' . $user->id);
+        return back()->withErrors(['error' => 'Failed to update the user.']);
+    }
 }
-
-
-
 
     public function destroy(User $user)
     {

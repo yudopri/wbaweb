@@ -17,6 +17,9 @@ use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\GadaController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\SendGridEmailController;
 
 
 // Authentication routes with email verification enabled
@@ -27,8 +30,17 @@ Route::get('/', [PartnerController::class, 'showUserHome'])->name('home');
 Route::get('admin/', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('admin/', [AuthController::class, 'login']);
 
-Route::get('password/reset', [ResetPasswordController::class, 'showResetForm'])->name('password.update');
+Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('forgot.password.form');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('forgot.password');// Show reset password form (GET request)
+Route::get('password/reset/{token}/{email}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
 
+// Handle password reset (POST request)
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset.password');
+
+
+Route::get('/send-email-form', [SendGridEmailController::class, 'showSendEmailForm'])->name('send.email.form');
+Route::get('/send-email', [SendGridEmailController::class, 'sendEmailWithContent'])->name('send.email');
+Route::get('/send-test-email', [SendGridEmailController::class, 'sendTestEmail'])->name('send.test.email');
 Auth::routes();
 
 // Static page routes
@@ -114,8 +126,8 @@ Route::get('/gallery/{id}', [GalleryController::class, 'show'])->name('admin.gal
 Route::resource('user', UserController::class);
 Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
 Route::get('/user/create', [UserController::class, 'create'])->name('admin.user.create');
-Route::put('/user/edit/{user}', [UserController::class, 'update'])->name('admin.user.update');
 Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
+Route::put('/user/edit/{user}', [UserController::class, 'update'])->name('admin.user.update');
 Route::post('/user/store', [UserController::class, 'store'])->name('admin.user.store');
 Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('admin.user.destroy');
 Route::delete('/user/{id}', [UserController::class, 'show'])->name('admin.user.show');

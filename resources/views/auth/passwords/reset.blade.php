@@ -12,7 +12,13 @@
       <img alt="Logo" class="w-24 h-24 rounded-full mx-auto mb-4" src="{{ asset('assets/image/logowba.png') }}" width="100" height="100"/>
       <h2 class="text-white text-2xl font-semibold mb-6">Reset Password</h2>
 
-      <form action="{{ route('password.update') }}" method="POST">
+      @if (session('status'))
+        <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
+          {{ session('status') }}
+        </div>
+      @endif
+
+      <form action="{{ route('reset.password') }}" method="POST">
         @csrf <!-- Laravel CSRF Protection -->
         <input type="hidden" name="token" value="{{ $token }}">
 
@@ -23,10 +29,9 @@
             type="email"
             placeholder="Email Address"
             class="w-full p-3 rounded-full bg-white bg-opacity-75 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') is-invalid @enderror"
-            value="{{ $email ?? old('email') }}"
+            value="{{ old('email', $email) }}"
             required
             autocomplete="email"
-            autofocus
           />
           @error('email')
             <span class="text-red-500 text-sm mt-2 block">

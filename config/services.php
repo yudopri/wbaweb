@@ -38,6 +38,11 @@ return [
     'project_id' => env('FIREBASE_PROJECT_ID'),
     'credentials' => env('FIREBASE_CREDENTIALS'),
 ],
+'sendgrid' => [
+    'api_key' => env('SENDGRID_API_KEY'),
+    'template_id' => env('SENDGRID_TEMPLATE_ID'),
+],
+
 
 
 ];

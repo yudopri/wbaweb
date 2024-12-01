@@ -90,14 +90,15 @@ return [
     |
     */
 
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60,
-            'throttle' => 60,
-        ],
+ 'passwords' => [
+    'users' => [
+        'provider' => 'users',
+        'table' => 'password_reset_tokens', // Menunjuk ke tabel token reset password yang sudah ada
+        'expire' => 60, // Token kadaluarsa setelah 60 menit
+        'throttle' => 60, // Membatasi percakapan permintaan reset password untuk menghindari spam
     ],
+],
+
 
     /*
     |--------------------------------------------------------------------------

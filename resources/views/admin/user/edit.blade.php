@@ -10,54 +10,83 @@
     <a href="{{ route('admin.user.index') }}" class="btn btn-secondary mb-3">Back to Users List</a>
 
     <form action="{{ route('admin.user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
+        @csrf
+        @method('PUT')
 
-    <!-- Name field -->
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
-    </div>
+        <!-- Name field -->
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $user->name) }}" required>
+            @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <!-- Email field -->
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $user->email) }}" required>
-    </div>
+        <!-- Email field -->
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $user->email) }}" required>
+            @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <!-- Password field (Optional) -->
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" class="form-control">
-        <small>Leave empty if you don't want to change the password.</small>
-    </div>
+        <!-- Password field (Optional) -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
+            <small>Leave empty if you don't want to change the password.</small>
+            @error('password')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <!-- Password confirmation field -->
-    <div class="form-group">
-        <label for="password_confirmation">Confirm Password</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
-    </div>
+        <!-- Password confirmation field -->
+        <div class="form-group">
+            <label for="password_confirmation">Confirm Password</label>
+            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+        </div>
 
-    <!-- Profile Picture field -->
-    <div class="form-group">
-        <label for="profile_picture">Profile Picture</label>
-        <input type="file" name="profile_picture" id="profile_picture" class="form-control">
+        <!-- Role field -->
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select name="role" id="role" class="form-control @error('role') is-invalid @enderror" required>
+                <option value="karyawan" {{ old('role', $user->role) == 'karyawan' ? 'selected' : '' }}>Karyawan</option>
+                <option value="head" {{ old('role', $user->role) == 'head' ? 'selected' : '' }}>Head</option>
+            </select>
+            @error('role')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
-        <!-- Display current profile picture if it exists -->
-        @if($user->profile_picture)
-            <div class="mt-2">
-                <label>Current Profile Picture:</label><br>
-                <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" width="100" height="100">
-            </div>
-        @endif
+        <!-- Profile Picture field -->
+        <div class="form-group">
+            <label for="profile_picture">Profile Picture</label>
+            <input type="file" name="profile_picture" id="profile_picture" class="form-control @error('profile_picture') is-invalid @enderror">
 
-        @error('profile_picture')
-            <div class="text-danger">{{ $message }}</div>
-        @enderror
-    </div>
+            <!-- Display current profile picture if it exists -->
+            @if($user->profile_picture)
+                <div class="mt-2">
+                    <label>Current Profile Picture:</label><br>
+                    <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" width="100" height="100">
+                </div>
+            @endif
 
-    <!-- Submit button -->
-    <button type="submit" class="btn btn-primary">Update User</button>
-</form>
+            @error('profile_picture')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
 
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary">Update User</button>
+    </form>
+
+    <!-- Display validation errors if any -->
+    @if ($errors->any())
+        <ul class="mt-3">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 @stop
